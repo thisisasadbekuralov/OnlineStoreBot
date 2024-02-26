@@ -8,6 +8,7 @@ from config import BOT_TOKEN
 from handlers.category_handlers import category_router
 from handlers.cmd_handlers import cmd_router
 from handlers.product_handlers import product_router
+from utils import my_commands
 
 
 async def main():

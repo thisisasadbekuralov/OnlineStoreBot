@@ -34,17 +34,18 @@ def make_confirm_kb():
 
 
 def make_products_kb():
-    products = db.get_products()
+    categories = db.get_products()
     rows = []
-    for prod in products:
+    for cat in categories:
         rows.append([
             InlineKeyboardButton(
-                text=prod[1], callback_data=str(prod[1])
+                text=cat[1], callback_data=str(cat[0])
             )]
         )
     inl_kb = InlineKeyboardMarkup(
         inline_keyboard=rows
     )
     return inl_kb
+
 
 

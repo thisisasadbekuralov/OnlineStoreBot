@@ -56,22 +56,22 @@ class Database:
         else:
             return False
 
-    def add_product(self, new_product):
-        try:
-            self.cursor.execute(
-                "INSERT INTO products (product_name, price, image) VALUES(?, ?, ?);",
-                (new_product,)
-            )
-            self.conn.commit()
-            return True
-        except:
-            return False
+    # def add_product(self, new_product):
+    #     try:
+    #         self.cursor.execute(
+    #             "INSERT INTO products (product_name, price, image) VALUES(?, ?, ?);",
+    #             (new_product,)
+    #         )
+    #         self.conn.commit()
+    #         return True
+    #     except:
+    #         return False
 
 
 
     def check_product_exists(self, name):
         lst = self.cursor.execute(
-            f"SELECT * FROM products WHERE product_name=?",
+            f"SELECT * FROM products WHERE product_title=?",
             (name,)
         ).fetchall()
         if not lst:
@@ -82,7 +82,7 @@ class Database:
 
     def get_products(self):  # get all categories
         categories = self.cursor.execute(
-            "SELECT id, product_name FROM products;"
+            "SELECT id, product_title FROM products;"
         )
         return categories.fetchall()
 
@@ -90,8 +90,22 @@ class Database:
     def rename_product(self, old_name, new_name):
         try:
             self.cursor.execute(
-                "UPDATE products SET product_name=?, price=?, product_image=? WHERE product_name=?;",
+                "UPDATE products SET product_title=?, product_price=?, product_image=? WHERE product_id=?;",
                 (new_name, old_name)
+            )
+            self.conn.commit()
+            return True
+        except:
+            return False
+
+
+    def add_product(self, title, text, image, price, phone, u_id, cat_id):
+        try:
+            self.cursor.execute(
+                f'INSER INTO products'
+                f'(product_title,product_text,product_image,product_price,product_owner_phone_number,product_owner_id'
+                f'VALUES (?,?,?,?,?,?)',
+                (title, text, image, price, phone, u_id, cat_id)
             )
             self.conn.commit()
             return True
